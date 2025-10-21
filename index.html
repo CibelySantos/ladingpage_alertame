@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlertaMe | Sua Segurança em Primeiro Lugar</title>
+    <style>
+        /* === Variáveis e Reset Básico === */
+        :root {
+            --primary-red: #E53935; /* Vermelho principal vibrante */
+            --secondary-dark: #333;
+            --light-gray: #f8f8f8;
+            --text-color: #444;
+            --font-main: 'Arial', sans-serif;
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: var(--secondary-dark);
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        /* === Botões Padrão === */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            border: 2px solid var(--primary-red);
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-primary:hover {
+            background-color: #c02d2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-1px);
+        }
+
+        /* === Cabeçalho e Navegação === */
+        header {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* ESTILOS DA LOGO ATUALIZADOS PARA IMAGEM */
+        .logo {
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 35px; /* Define uma altura fixa para a logo */
+            width: auto;
+            vertical-align: middle;
+        }
+        /* FIM DOS ESTILOS DA LOGO ATUALIZADOS */
+
+        .nav-links a {
+            color: var(--secondary-dark);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+        
+        /* Ocultar navegação secundária no mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* === Seção Hero (Banner Principal) === */
+        #hero {
+            background: white; 
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            display: block; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            text-align: center; 
+        }
+
+        .hero-text {
+            flex: none; 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+
+        .hero-text h1 {
+            font-size: 3.5em;
+            color: var(--secondary-dark);
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .hero-text p {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero-ctas .btn {
+            margin-right: 15px;
+        }
+
+        /* === Estilização do Vídeo Iframe Responsivo (Sem Bordas Pretas) === */
+        .video-container {
+            width: 100%; 
+            max-width: 800px; 
+            margin: 0 auto; 
+
+            /* Container que define a proporção (16:9 é 56.25%) */
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+            background-color: var(--secondary-dark); 
+        }
+        
+        .video-container iframe {
+            /* Técnica de corte para remover as barras pretas */
+            position: absolute;
+            top: -5%; 
+            left: -5%; 
+            width: 110%; 
+            height: 110%;
+            border: 0;
+        }
+        /* =========================================== */
+
+        @media (max-width: 900px) {
+            .hero-content {
+                text-align: center;
+            }
+            .video-container {
+                margin-top: 40px;
+                width: 100%;
+                max-width: 100%; 
+            }
+            .hero-text h1 {
+                font-size: 2.5em;
+            }
+            .hero-text {
+                flex: none;
+            }
+        }
+
+        /* === Seção Como Funciona / Features === */
+        #features-overview {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .feature-grid {
+            /* Layout de 3 colunas para 6 cards */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--primary-red);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card .icon {
+            font-size: 3em;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: var(--secondary-dark);
+            margin-bottom: 10px;
+        }
+
+        /* === Seção Por que Escolher / Destaques === */
+        #why-choose {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+
+        .differentiator-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .differentiator-item {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        .differentiator-item .value {
+            font-size: 3em;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 5px;
+        }
+
+        .differentiator-item .label {
+            font-size: 1.1em;
+            color: var(--secondary-dark);
+        }
+        
+        /* Ajuste de Responsividade para Depoimentos */
+        @media (max-width: 900px) {
+             .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            .differentiator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* === Seção Depoimentos === */
+        #testimonials {
+            padding: 80px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            padding: 25px;
+            border: 1px solid var(--primary-red);
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            box-shadow: var(--shadow-light);
+            font-style: italic;
+        }
+
+        .testimonial-card .author {
+            display: block;
+            margin-top: 15px;
+            font-style: normal;
+            font-weight: bold;
+            color: var(--secondary-dark);
+        }
+
+        /* === CTA Final === */
+        #cta-final {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        #cta-final h2 {
+            color: white;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        #cta-final p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Sobreescreve o botão primário para o CTA final */
+        #cta-final .btn-primary {
+            background-color: white;
+            color: var(--primary-red);
+            border-color: white;
+        }
+
+        #cta-final .btn-primary:hover {
+            background-color: #eee;
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        /* === Rodapé === */
+        footer {
+            background-color: var(--secondary-dark);
+            color: white;
+            padding: 40px 0;
+            font-size: 0.9em;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .footer-column h4 {
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #444;
+            margin-top: 30px;
+            padding-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <img src="./img/logo.png" alt="Logo AlertaMe - Sua Segurança em Primeiro Lugar">
+            </a>
+            <nav class="nav-links">
+                <a href="#features-overview">Como Funciona</a>
+                <a href="#why-choose">Vantagens</a>
+                <a href="#testimonials">Depoimentos</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Sua Segurança Pessoal e Familiar em Tempo Real.</h1>
+                <p>Monitoramento de voz inteligente e envio automático de localização para emergências. Assista ao nosso vídeo para entender como o AlertaMe funciona.</p>
+                <div class="hero-ctas">
+                    <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Baixar o App</a>
+                </div>
+            </div>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/CRKkjkiaxvs?si=S7mlfoPPTv4TVuqm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="features-overview">
+    <div class="container">
+        <h2>Tecnologia de Proteção que Salva Vidas</h2>
+        <div class="feature-grid">
+            
+            <div class="feature-card">
+                <h3>Monitoramento de Voz Inteligente</h3>
+                <p>Nosso sistema patenteado detecta automaticamente palavras-chave de emergência, como "socorro" ou "ajuda", e aciona o sistema de alerta instantaneamente, mesmo que o app esteja em segundo plano.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Alerta Automático via WhatsApp</h3>
+                <p>Envie mensagens automáticas e criptografadas para até 5 contatos de confiança com sua localização em tempo real, o nível da bateria e a hora do incidente, garantindo socorro imediato.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Rede de Segurança Colaborativa</h3>
+                <p>Compartilhe anonimamente experiências e avaliações sobre locais visitados. Ajude a criar e a consultar uma rede de segurança colaborativa, visualizando áreas de risco em tempo real.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Zonas de Segurança (Geo-Cerca)</h3>
+                <p>Defina áreas seguras (casa, escola, trabalho). Receba e envie alertas automáticos quando você ou seus contatos saírem ou entrarem nessas zonas predefinidas.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Controle Total de Privacidade</h3>
+                <p>Mantenha sua vida privada. O monitoramento de voz é ativado apenas para palavras de emergência e o compartilhamento de localização só ocorre após o acionamento do alerta.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Gerenciador de Contatos de Apoio</h3>
+                <p>Edite seu perfil facilmente para mudar, adicionar ou remover seus contatos de emergência a qualquer momento. Mantenha sua rede de segurança sempre atualizada e confiável.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <section id="why-choose">
+        <div class="container">
+            <h2>Por que escolher o AlertaMe? Fatos e Números</h2>
+            <div class="differentiator-grid">
+                
+                <div class="differentiator-item">
+                    <div class="value">50.000+</div>
+                    <div class="label">Pessoas Protegidas Atualmente</div>
+                </div>
+                
+                <div class="differentiator-item">
+                    <div class="value">100%</div>
+                    <div class="label">Taxa de Confiança e Disponibilidade</div>
+                </div>
+                
+                <div class="differentiator-item">
+                    <div class="value">24/7</div>
+                    <div class="label">Monitoramento Ativo e Ininterrupto</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2>O que nossos usuários dizem</h2>
+            <div class="testimonial-grid">
+                
+                <div class="testimonial-card">
+                    "O AlertaMe salvou a vida do meu filho. Ele conseguiu acionar o alerta discretamente no ônibus quando se sentiu em perigo. A equipe de apoio foi incrível!"
+                    <span class="author">— Patrícia F. (Mãe)</span>
+                </div>
+
+                <div class="testimonial-card">
+                    "Uso o aplicativo diariamente quando faço minhas corridas noturnas. A paz de espírito de saber que minha família será notificada instantaneamente se algo acontecer é inestimável."
+                    <span class="author">— Ana S. (Atleta)</span>
+                </div>
+                
+                <div class="testimonial-card">
+                    "Depois de instalar o AlertaMe, sinto que o nível de estresse diminuiu muito. É uma ferramenta discreta, mas que oferece uma camada robusta de proteção. Essencial para quem mora em grandes centros urbanos."
+                    <span class="author">— Carlos M. (Usuário)</span>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="cta-final">
+        <div class="container">
+            <h2>Pronto para proteger você e quem você ama?</h2>
+            <p>Junte-se a milhares de pessoas que já confiam no AlertaMe para sua segurança pessoal. Comece sua proteção hoje.</p>
+            <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Começar agora - É grátis</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>AlertaMe</h4>
+                    <p>Sua plataforma completa de segurança pessoal. Desenvolvida no Brasil com tecnologia de ponta para cuidar de você e da sua família.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="mailto:alertame0@gmail.com" >E-mail</a></li> 
+                        <li><a href="https://wa.me/+5512991096569" target="_blank" rel="noopener noreferrer">WhatsApp</a></li> 
+                        <li><a href="https://www.instagram.com/alertame_ofc/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Ajuda</h4>
+                    <ul>
+                        <li><a href="https://policies.google.com/faq" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+                        <li><a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Termos de Uso</a></li>
+                        <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de Privacidade</a></li>
+                        <li><a href="https://support.google.com/?hl=pt-BR" target="_blank" rel="noopener noreferrer">Suporte</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Download</h4>
+                    <ul>
+                        <li><a href="https://www.apple.com/app-store/" target="_blank" rel="noopener noreferrer">App Store</a></li>
+                        <li><a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer">Google Play</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 AlertaMe. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
